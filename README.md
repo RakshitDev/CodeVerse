@@ -11,6 +11,21 @@ Watch the project demo here:
 
 ---
 
+## 🖼️ Screenshots
+![Home Page](screenshots/home.png)
+
+
+
+### 🔐 Login Page
+![Login Page](screenshots/login.png)
+
+
+
+### 💳 Payment Page
+![Payment Page](screenshots/razorpaypayment.png)
+
+
+
 ## 🛠️ Tech Stack
 
 - **Java 17**
@@ -55,12 +70,6 @@ bash
 Copy
 Edit
 ./mvnw spring-boot:run
-Visit in browser:
+Visit in browser:## 🎥 Live Demo
 
-arduino
-Copy
-Edit
-http://localhost:8080
-   
-   
-   
+[▶️ Watch CodeVerse Demo on YouTube](https://youtu.be/OkFit0MDbsY)
