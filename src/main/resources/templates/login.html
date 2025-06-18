@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Login - CodeVerse</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		body {
+			background: radial-gradient(circle, #0f0f0f, #1a1a1a, #121212);
+			color: #f0f0f0;
+			font-family: 'Poppins', sans-serif;
+		}
+
+		.login-container {
+			max-width: 400px;
+			background: #141414;
+			padding: 40px;
+			border-radius: 15px;
+			box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+			margin-top: 200px;
+		}
+
+		h2 {
+			color: #00ffff;
+			margin-bottom: 30px;
+		}
+
+		.btn-login {
+			background: #00ffff;
+			color: #000;
+			font-weight: 600;
+		}
+
+		.btn-login:hover {
+			background: #00dddd;
+			color: #000;
+		}
+
+		a {
+			color: #00ffff;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Navbar -->
+	<div th:replace="fragments/header :: codeverse-header"></div>
+	<!-- nav ends here -->
+
+
+	<div class="container d-flex justify-content-center align-items-center">
+		<div class="login-container">
+			<div th:if="${errorMsg}" class="text-danger text-center mt-2 fw-semibold" style="font-size: 1rem;">
+				<span th:text="${errorMsg}"></span>
+			</div>
+			<h2 class="text-center">Login</h2>
+			<form th:action="@{/userLogin}" th:object="${user}" method="post">
+				<div class="mb-3">
+					<label>Email address</label>
+					<input type="email" th:field="*{email}" class="form-control" placeholder="Enter Email">
+				</div>
+				<div class="mb-3">
+					<label>Password</label>
+					<input type="password" th:field="*{password}" class="form-control" placeholder="Enter Password">
+				</div>
+				<button type="submit" class="btn btn-login w-100">Login</button>
+				<div class="mt-3 text-center">
+					<p>Don't have an account? <a href="/register">Register</a></p>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<header th:fragment="codeverse-loggedin-header">
+	<nav class="navbar navbar-expand-lg">
+		<div class="container">
+			<a class="navbar-brand" href="/index">
+				<img src="image/logo.png" alt="CODEVERSE" width="60" />
+				<span class="h3">CODEVERSE</span>
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+					<li class="nav-item">
+						<a class="nav-link" href="/index">Home</a>
+					</li>
+					<li class="nav-item ms-4">
+						<a class="nav-link" href="/myCourses">My Courses</a>
+					</li>
+					<li class="nav-item ms-4 d-flex align-items-center">
+						<a class="nav-link" href="/userProfile">
+							<i class="bi bi-person-circle" style="font-size: 1.7rem;"></i>
+							<span th:text="${userSession.name}" class="ms-1"></span>
+						</a>
+					</li>
+					<li class="nav-item ms-4">
+						<a href="/userlogout" class="btn btn-danger">Logout</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>

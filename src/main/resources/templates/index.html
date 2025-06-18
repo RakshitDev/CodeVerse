@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Smart Programming</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<style>
+		body {
+			background: radial-gradient(circle, #0f0f0f, #1a1a1a, #121212);
+			color: #f0f0f0;
+			font-family: 'Poppins', sans-serif;
+		}
+
+		.navbar {
+			background: #1f1f1f;
+			border-bottom: 1px solid #333;
+			padding: 15px 25px;
+		}
+
+		.navbar-brand {
+			font-weight: bold;
+			font-size: 1.8rem;
+			color: #00ffff;
+			display: flex;
+			align-items: center;
+		}
+
+		.navbar-brand img {
+			width: 40px;
+			margin-right: 10px;
+		}
+
+		.nav-link {
+			color: #ccc !important;
+			font-weight: 500;
+			margin-left: 20px;
+			transition: 0.3s;
+		}
+
+		.nav-link:hover {
+			color: #00ffff !important;
+		}
+
+		.btn-info {
+			background-color: #00ffff;
+			color: #000;
+			border: none;
+			font-weight: 600;
+		}
+
+		.btn-info:hover {
+			background-color: #00dddd;
+			color: #000;
+		}
+
+		h3,
+		h2 {
+			color: #00ffff;
+		}
+
+		.card {
+			background: #141414;
+			border: none;
+			border-radius: 15px;
+			box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+			transition: 0.3s;
+			color: #ccc;
+		}
+
+		.card:hover {
+			transform: scale(1.05);
+			box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+		}
+
+		.card-title {
+			color: #00ffff;
+			font-weight: 600;
+		}
+
+		.card-footer {
+			color: #999;
+			font-size: 0.85rem;
+			background: none;
+			border: none;
+		}
+
+		.footer {
+			background: #101010;
+			color: #aaa;
+			padding: 20px 0;
+			border-top: 1px solid #333;
+			margin-top: 50px;
+		}
+
+		.footer a {
+			color: #00ffff;
+			text-decoration: none;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Navbar -->
+	<div th:if="${userSession ==null OR userSession==''}">
+		<div th:replace="fragments/header :: codeverse-header"></div>
+	</div>
+
+	<div th:unless="${userSession == null OR userSession == ''}">
+		<div th:replace="fragments/user-header :: codeverse-loggedin-header"></div>
+	</div>
+
+	<!-- nav ends here -->
+
+	<!-- Banner -->
+	<section class="text-center" style="position: relative;">
+		<img src="image/banner.jpg" alt="Smart Programming Banner"
+			style="width: 100%; height: auto; max-height: 400px;">
+
+		<h2 style="
+    margin-top: -60px;
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #00ffff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    position: relative;
+    z-index: 2;
+  ">
+			Accelerate Your Career Growth
+		</h2>
+	</section>
+
+
+	<!-- Courses Section -->
+	<section class="container py-5">
+		<h3 class="text-center mb-5">🔥 Our Courses</h3>
+		<div class="row g-4">
+			<!-- Course Template -->
+			<!-- Repeat this div for each course -->
+			<div th:each="course : ${courseList}" class="col-lg-3 col-md-6">
+				<div class="card p-3">
+					<img th:src="@{${course.imageUrl}}" class="card-img-top rounded" alt="Course Image">
+					<div class="card-body">
+						<h5 th:text="${course.name}" class="card-title">Core Java</h5>
+						<p th:text="${course.description}" class="card-text">Core Java Concepts, Interview Prep, Case
+							Studies & 5 Projects</p>
+						<p><strong>Price: </strong><del th:text="'Rs:' + ${course.originalPrice}">Rs:5999</del> <span
+								th:text="${course.discountedPrice}" class="bg-info text-dark p-1 rounded">Rs.1999</span>
+						</p>
+						<div th:if=" ${userSession == null}">
+							<a href="/login" class="btn btn-info">Login to Buy</a>
+						</div>
+
+						<!-- ✅ Show if logged in -->
+						<div th:if="${userSession != null}">
+							<button class="btn btn-primary"
+						    	th:data-cname="${course.name}"
+						    	th:data-camount="${course.discountedPrice}"
+						    	th:data-uname="${userSession.name}"
+						    	th:data-uemail="${userSession.email}"
+						    	th:data-uphoneno="${userSession.phoneno}"
+						    	 onclick="purchaseCourse(this.getAttribute('data-cname'),this.getAttribute('data-camount'),this.getAttribute('data-uname'),this.getAttribute('data-uemail'),this.getAttribute('data-uphoneno'))">
+									Buy
+									</button>
+						</div>
+						<div th:text="${course.updatedOn}" class="card-footer">Updated 2 days ago</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Course Template -->
+
+
+			<!-- Repeat above block as needed -->
+		</div>
+	</section>
+	</main>
+
+	<!-- Footer -->
+	<div th:replace="fragments/footer :: codeverse-footer"></div>
+	<!-- footer ends here -->
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js">
+	</script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+	<script>
+
+		function purchaseCourse(courseName, courseAmount, uname, uemail, uphoneno) {
+			var options = {
+				"key": "rzp_test_ZhnbQNgZdvF9YS", // Enter the Key ID generated from the Dashboard
+				"amount": courseAmount * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+				"currency": "INR",
+				"name": "CODEVERSE",
+				"description": "Course Tranjection",
+				"image": "http://localhost:8080/image/logo.png",
+				"handler": function (response) {
+					console.log(response);
+					alert('payment successfull');
+
+					var requestData = {
+						courseName: courseName,
+						courseAmount: courseAmount,
+						userEmail: uemail,
+						dateOfPurchase: new Date().toLocaleString(),
+						rzpPaymentId: response.razorpay_payment_id
+					};
+
+					$.ajax({
+						url: "/api/storeOrderDetails",
+						type: "POST",
+						contentType: "application/json",
+						data: JSON.stringify(requestData),
+						success: function (response) {
+							console.log("data Stored successfully", response);
+							alert("congrats,course has been provided,thankyou");
+							window.location.href = '/myCourses';
+
+						},
+						error: function (error) {
+							console.log("Error occured :" + error);
+							alert("some error occured:" + error);
+						}
+
+					});
+
+
+				},
+				"prefill": {
+					"name": uname,
+					"email": uemail,
+					"contact": uphoneno
+				},
+				"notes": {
+					"courseName": courseName
+				},
+				"theme": {
+					"color": "#3399cc"
+				}
+			};
+			var rzp1 = new Razorpay(options);
+			rzp1.on('payment.failed', function (response) {
+				console.log(response);
+				alert("Error : response")
+			});
+			rzp1.open();
+		}
+
+	</script>
+
+
+</body>
+
+</html>
