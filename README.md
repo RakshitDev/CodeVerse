@@ -6,8 +6,7 @@
 
 ## 🎥 Live Demo
 
-Watch the project demo here:  
-[![Watch Demo](https://youtu.be/OkFit0MDbsY)
+[![Watch Demo](https://img.youtube.com/vi/OkFit0MDbsY/0.jpg)](https://youtu.be/OkFit0MDbsY)
 
 ---
 
